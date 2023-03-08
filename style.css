@@ -1,0 +1,32 @@
+body {
+    width: 800px;
+    max-width: 100%;
+    margin: auto;
+    background-color: white;
+}
+
+.dark-mode {
+    filter: invert(100%);
+}
+
+article {
+    border: 1px solid lightgray;
+    /*padding: 1em;*/
+    height: 2.4em;
+    line-height: 1.2em;
+    overflow: auto;
+    background-color: white;
+}
+
+article * {
+    overflow-anchor: none;
+}
+
+#anchor {
+    overflow-anchor: auto;
+    height: 1px;
+}
+
+#logo-linto-inline {
+    height: 1em;
+}

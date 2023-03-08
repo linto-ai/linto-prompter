@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LinTO</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>LinTO</h1>
+    <section>
+        <button id="record-button">Démmarer l'enregistrement</button>
+        <button id="stop-button" disabled>Arrêter l'enregistrement</button>
+        <button id="dark-mode-button">Inverser les couleurs</button>
+    </section>
+    <section>
+        <h2>Transcription</h2>
+        <article id="scroller">
+            <span>
+            Cette transcription vous est offerte par LinTO <img id="logo-linto-inline" src="linto-only.svg"/> – https://linto.ai 
+            <br/>Sofins 2023 - Alocution de john malkovitch
+            </span><br/>
+            <span id="transcription-text"></span>
+            <span id="transcription-partial"></span>
+            <div id="anchor"></div>
+        </article>
+    </section>
+    
+</body>
