@@ -56,8 +56,9 @@ article {
     height: 1px;
 }
 
-#logo-linto-inline {
+#logo-linto-inline, #logo-linagora-inline {
     height: 0.9em;
+    vertical-align: middle;
 }
 
 #logo-linagora-title {
