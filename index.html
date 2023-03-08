@@ -14,6 +14,7 @@
     <section>
         <button id="record-button">Démarer l'enregistrement</button>
         <button id="stop-button" disabled>Arrêter l'enregistrement</button>
+        <button id="reset-button">Réafficher le placeholder</button>
         <button id="dark-mode-button">Inverser les couleurs</button>
     </section>
     <section>
@@ -21,13 +22,17 @@
             <div id="scroller">
                 <div id="force-scroll"></div>
                 <span id="transcription-text">
-                    Cette transcription vous est offerte par LinTO <img id="logo-linto-inline" src="linto-only.svg"/> <img src="logo-linagora.png" id="logo-linagora-inline"> – https://linto.ai 
-                <br/>Sofins 2023 - Alocution de john malkovitch
+                    
                 </span>
                 <span id="transcription-partial"></span>
                 <div id="anchor"></div>
             </div>
         </article>
     </section>
+
+    <template id="placeholder">
+        Cette transcription vous est offerte par LinTO <img id="logo-linto-inline" src="linto-only.svg"/> <img src="logo-linagora.png" id="logo-linagora-inline"> – https://linto.ai 
+                <br/>Sofins 2023 - Alocution de john malkovitch
+    </template>
     
 </body>

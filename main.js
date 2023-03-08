@@ -7,13 +7,17 @@ window.addEventListener('load', (event) => {
         var sampleRate = microphoneStream.getAudioTracks()[0].getSettings().sampleRate || 48000;
         
         initializeRecorder(microphoneStream, sampleRate);
-
+        resetPlaceHolder();
+        
         const recordButton = document.getElementById("record-button");
         recordButton.addEventListener("click", startRecording);
     
         const stopButton = document.getElementById("stop-button");
         stopButton.addEventListener("click", stopRecording);
-    
+        
+        const resetButton = document.getElementById("reset-button");
+        resetButton.addEventListener("click", resetPlaceHolder);
+
         const darkModeButton = document.getElementById("dark-mode-button");
         darkModeButton.addEventListener("click", toggleDarkMode);
     
@@ -105,6 +109,13 @@ window.addEventListener('load', (event) => {
         
         function toggleDarkMode(event) {
             document.getElementById('transcription').classList.toggle("dark-mode");
+        }
+
+        function resetPlaceHolder() {
+            const clone = document.getElementById("placeholder").content.cloneNode(true);
+            document.getElementById("transcription-text").innerHTML = '';
+            document.getElementById("transcription-text").appendChild(clone);
+            document.getElementById("transcription-partial").innerHTML = '';
         }
     }).catch(function (err) {
         
