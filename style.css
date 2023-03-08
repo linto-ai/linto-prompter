@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'lucidaGrande'; 
+    src: url("fonts/Lucida Grande/LucidaGrande-Regular.otf") format("opentype");
+    font-style: normal;
+}
+
 html {
     margin: 0;
     padding: 0;
+    font-family: 'lucidaGrande'
 }
 
 body {
@@ -29,18 +36,19 @@ h1 > * {
 article {
     border: 1px solid lightgray;
     padding:50px;
-    background-color: white;
+    background-color: black;
+    color:white;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     width: 700px;
+    font-size: 18px;
 }
 
 #scroller {
     height: 2.4em;
     line-height: 1.2em;
-    overflow: auto;
-    
+    overflow: hidden;
 }
 
 #scroller * {
