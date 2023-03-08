@@ -14,7 +14,7 @@ window.addEventListener('load', (event) => {
     const darkModeButton = document.getElementById("dark-mode-button");
     darkModeButton.addEventListener("click", toggleDarkMode);
 
-    document.getElementById('scroller').scroll(0, 1);
+    document.getElementById('scroller').scroll(0, 1000);
     async function startRecording(event) {
         const constraints = {
             audio: {
@@ -28,6 +28,7 @@ window.addEventListener('load', (event) => {
         
         recordButton.disabled = true;
         stopButton.disabled = false;
+        document.getElementById("transcription-text").textContent = '';
         
         initializeRecorder(stream);
     }
@@ -101,7 +102,7 @@ window.addEventListener('load', (event) => {
     }
     
     function toggleDarkMode(event) {
-        document.getElementById('scroller').classList.toggle("dark-mode");
+        document.getElementById('transcription').classList.toggle("dark-mode");
     }
 });
 

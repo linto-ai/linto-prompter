@@ -1,8 +1,25 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     width: 800px;
     max-width: 100%;
-    margin: auto;
+    margin: 0 auto;
+    padding: 0;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+h1 > * {
+    vertical-align: middle;
+}
+
+#transcription-section {
+    flex:1;
 }
 
 .dark-mode {
@@ -11,15 +28,27 @@ body {
 
 article {
     border: 1px solid lightgray;
-    /*padding: 1em;*/
+    padding:50px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 700px;
+}
+
+#scroller {
     height: 2.4em;
     line-height: 1.2em;
     overflow: auto;
-    background-color: white;
+    
 }
 
-article * {
+#scroller * {
     overflow-anchor: none;
+}
+
+#force-scroll {
+    height: 2.4em;
 }
 
 #anchor {
@@ -28,5 +57,11 @@ article * {
 }
 
 #logo-linto-inline {
-    height: 1em;
+    height: 0.9em;
+}
+
+#logo-linagora-title {
+    vertical-align: middle;
+    height: 40px;
+    margin-right: 20px;
 }

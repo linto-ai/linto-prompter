@@ -10,22 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>LinTO</h1>
+    <h1><img src="logo-linagora.png" id="logo-linagora-title"> <span>LinTO prompter</span> </h1>
     <section>
         <button id="record-button">Démmarer l'enregistrement</button>
         <button id="stop-button" disabled>Arrêter l'enregistrement</button>
         <button id="dark-mode-button">Inverser les couleurs</button>
     </section>
     <section>
-        <h2>Transcription</h2>
-        <article id="scroller">
-            <span>
-            Cette transcription vous est offerte par LinTO <img id="logo-linto-inline" src="linto-only.svg"/> – https://linto.ai 
-            <br/>Sofins 2023 - Alocution de john malkovitch
-            </span><br/>
-            <span id="transcription-text"></span>
-            <span id="transcription-partial"></span>
-            <div id="anchor"></div>
+        <article id="transcription">
+            <div id="scroller">
+                <div id="force-scroll"></div>
+                <span id="transcription-text">
+                    Cette transcription vous est offerte par LinTO <img id="logo-linto-inline" src="linto-only.svg"/> – https://linto.ai 
+                <br/>Sofins 2023 - Alocution de john malkovitch
+                </span>
+                <span id="transcription-partial"></span>
+                <div id="anchor"></div>
+            </div>
         </article>
     </section>
     
