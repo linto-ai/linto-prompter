@@ -5,7 +5,7 @@ window.addEventListener('load', (event) => {
         audio: {
             echoCancellation: false,
             noiseSuppression: false,
-            autoGainControl: true
+            autoGainControl: false
         }
     }
 
@@ -104,11 +104,11 @@ window.addEventListener('load', (event) => {
                     break;
                 case 'partial' in data:
                     console.log("got partial: ", data.partial);
-                    document.getElementById("transcription-partial").innerHTML = data.partial.replace("<unk>", "").replace("' ", "'");
+                    document.getElementById("transcription-partial").innerHTML = data.partial.replaceAll("<unk>", "").replaceAll("' ", "'");
                     break;
                 case 'text' in data:
                     document.getElementById("transcription-partial").innerHTML = '';
-                    document.getElementById("transcription-text").textContent += ' ' + data.text.replace("<unk>", "").replace("' ", "'");
+                    document.getElementById("transcription-text").textContent += ' ' + data.text.replaceAll("<unk>", "").replaceAll("' ", "'");
                     break;
                 case 'eof' in data:
                     websocket.close();
