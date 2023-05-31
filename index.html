@@ -7,6 +7,7 @@
     <title>LinTO</title>
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="config.js"></script>
+    <script src="microphone.js"></script>
     <script src="main.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -20,6 +21,10 @@
         <button id="watermark-button">Lancer le watermark</button>
         <button id="dark-mode-button">Inverser les couleurs</button>
         <button id="test-button">Lancer un test</button>
+        
+    </section>
+    <section id="parameters-section">
+        <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
     </section>
     <section id="parameters-section">
         <label for="watermark-frequence">Frequence du watermark (minutes):</label>
@@ -45,7 +50,8 @@
                 <span id="transcription-partial"></span>
                 <div id="anchor"></div>
             </div>
-            <div id="watermark">Transcription par LinTO <img id="logo-linto-inline" src="linto-only.svg" /></div>
+            <div id="watermark">Transcription par LinTO <img id="logo-linto-inline" src="linto-only.svg" /> <img
+                src="logo-linagora.png" id="logo-linagora-inline"> – https://linto.ai</div>
         </article>
     </section>
 
