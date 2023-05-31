@@ -14,21 +14,38 @@
 <body>
     <h1><img src="logo-linagora.png" id="logo-linagora-title"> <span>LinTO prompter</span> </h1>
     <section>
-        <button id="record-button">Démarrer l'enregistrement</button>
-        <button id="stop-button" disabled>Arrêter l'enregistrement</button>
-        <button id="reset-button">Réafficher le placeholder</button>
+        <button id="record-button">Démarrer la transcription</button>
+        <button id="stop-button" disabled>Arrêter la transcription</button>
+        <!-- <button id="reset-button">Réafficher le placeholder</button> -->
+        <button id="watermark-button">Lancer le watermark</button>
         <button id="dark-mode-button">Inverser les couleurs</button>
+        <button id="test-button">Lancer un test</button>
+    </section>
+    <section id="parameters-section">
+        <label for="watermark-frequence">Frequence du watermark (minutes):</label>
+        <input type="number" id="watermark-frequence" value="10" min="1" />
+    </section>
+    <section id="parameters-section">
+        <label for="animation-duration">Durée watermark (seconde):</label>
+        <input type="number" id="animation-duration" value="3" min="3" />
     </section>
     <section>
         <article id="transcription">
             <div id="scroller">
                 <div id="force-scroll"></div>
                 <span id="transcription-text">
-
+                    <!-- placeholder -->
+                    lorem ipsum dolor sit amet, consectetur adipiscing elit. sed non risus. suspendisse lectus tortor, 
+                    dignissim sit amet, adipiscing nec, ultricies sed, dolor. cras elementum ultrices diam. maecenas
+                    ligula massa, varius a, semper congue, euismod non, mi. proin porttitor, orci nec nonummy molestie,
+                    enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque
+                    vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor.
+                    Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque
                 </span>
                 <span id="transcription-partial"></span>
                 <div id="anchor"></div>
             </div>
+            <div id="watermark">Transcription par LinTO <img id="logo-linto-inline" src="linto-only.svg" /></div>
         </article>
     </section>
 

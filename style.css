@@ -25,6 +25,13 @@ h1 > * {
     vertical-align: middle;
 }
 
+button.red {
+    background-color: red;
+    color: white;
+    border: 1px solid black;
+    font-weight: bold;
+}
+
 #transcription-section {
     flex:1;
 }
@@ -45,10 +52,32 @@ article {
     font-size: 18px;
 }
 
+#parameters-section {
+    margin-top: 1rem;
+}
+
 #scroller {
     height: 2.4em;
     line-height: 1.2em;
     overflow: hidden;
+}
+
+#scroller.smaller {
+    animation-name: smallerText;
+    animation-duration: 1s;
+    transform: scale(0.6);
+    position: relative;
+    right: 137px;
+    bottom: 10px;
+}
+
+#scroller.normal {
+    animation-name: normalText;
+    animation-duration: 1s;
+    transform: scale(1);
+    position: relative;
+    right: 0px;
+    bottom: 0px;
 }
 
 #scroller * {
@@ -73,4 +102,89 @@ article {
     vertical-align: middle;
     height: 40px;
     margin-right: 20px;
+}
+
+#watermark {
+    position: absolute;
+    opacity: 0;
+}
+
+#watermark.hidden {
+    position: absolute;
+    opacity: 0;
+    animation-duration: 1s;
+    animation-name: slideout;
+
+}
+
+#watermark.displayed {
+    display: block;
+    animation-duration: 1s;
+    animation-name: slidein;
+    position: absolute;
+    right:50px;
+    bottom:50px;
+    opacity: 1;
+}
+
+
+
+@keyframes slidein {
+    from {
+        right:0px;
+        bottom:0px;
+        opacity: 0;
+    }
+  
+    to {
+        right:50px;
+        bottom:50px;
+        opacity: 1;
+    }
+}
+
+@keyframes slideout {
+    from {
+        right:50px;
+        bottom:50px;
+        opacity: 1;
+    }
+  
+    to {
+        right:0px;
+        bottom:0px;
+        opacity: 0;
+    }
+}
+
+@keyframes smallerText {
+    from {
+        transform: scale(1);
+        position: relative;
+        right: 0px;
+        bottom: 0px;
+    }
+  
+    to {
+        transform: scale(0.6);
+        position: relative;
+        right: 137px;
+        bottom: 10px;
+    }
+}
+
+@keyframes normalText {
+    from {
+        transform: scale(0.6);
+        position: relative;
+        right: 137px;
+        bottom: 10px;
+    }
+  
+    to {
+        transform: scale(1);
+        position: relative;
+        right: 0px;
+        bottom: 0px;
+    }
 }

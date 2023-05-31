@@ -8,17 +8,20 @@ window.addEventListener('load', (event) => {
             autoGainControl: false
         }
     }
-
+    
+    //todo select media device
     navigator.mediaDevices.getUserMedia(constraints).then(function (microphoneStream) {
         var websocket;
         var isWebsocketOpen = false;
+        let watermarkInterval = null
+        let fakeTextInterval = null
         //Chrome only
         //console.log(microphoneStream.getAudioTracks()[0].getCapabilities());
         //var sampleRate = microphoneStream.getAudioTracks()[0].getSettings().sampleRate;
         //console.log("sampleRate: ", sampleRate);
 
         initializeRecorder(microphoneStream);
-        resetPlaceHolder();
+        //resetPlaceHolder();
 
         const recordButton = document.getElementById("record-button");
         recordButton.addEventListener("click", startRecording);
@@ -26,11 +29,29 @@ window.addEventListener('load', (event) => {
         const stopButton = document.getElementById("stop-button");
         stopButton.addEventListener("click", stopRecording);
 
-        const resetButton = document.getElementById("reset-button");
-        resetButton.addEventListener("click", resetPlaceHolder);
+        // const resetButton = document.getElementById("reset-button");
+        // resetButton.addEventListener("click", resetPlaceHolder);
+        
+        const watermarkButton = document.getElementById("watermark-button");
+        watermarkButton.addEventListener("click", displayWatermark);
 
         const darkModeButton = document.getElementById("dark-mode-button");
         darkModeButton.addEventListener("click", toggleDarkMode);
+
+        const testButton = document.getElementById("test-button");
+        testButton.addEventListener("click", fakeText);
+
+        const watermarkFrequenceInput = document.getElementById("watermark-frequence");
+        watermarkFrequenceInput.addEventListener("change", (event) => {
+            const frequence = event.target.value;
+            setWatermarkFrequence(frequence);
+        })
+        
+        setWatermarkFrequence(watermarkFrequenceInput.value)
+
+        const cleanTextInterval = setInterval(() => {
+            cleanText()
+        }, 1000)
 
         document.getElementById('scroller').scroll(0, 1000);
 
@@ -67,6 +88,8 @@ window.addEventListener('load', (event) => {
 
             var audioInput = audio_context.createMediaStreamSource(stream);
 
+            // list media devices
+
             console.log("Created media stream.");
 
             var bufferSize = 8192;
@@ -96,6 +119,7 @@ window.addEventListener('load', (event) => {
         }
 
         function handleWebsocketData(data, retry = 0) {
+            console.log("handleWebsocketData: ", data)
             switch (true) {
                 case typeof data === 'string':
                     console.log("got string, retry: ", retry, "data: ", data)
@@ -119,6 +143,21 @@ window.addEventListener('load', (event) => {
             }
         }
 
+        function fakeText() {
+            if(fakeTextInterval) {
+                clearInterval(fakeTextInterval)
+                fakeTextInterval = null
+                testButton.innerText = "Lancer un test"
+                testButton.classList.remove("red")
+                return
+            }
+            testButton.innerText = "Arreter les tests"
+            testButton.classList.add("red")
+            fakeTextInterval = setInterval(() => {
+                document.getElementById("transcription-text").textContent += '.' + " This is a test";
+            }, 1000)
+        }
+
         function toggleDarkMode(event) {
             document.getElementById('transcription').classList.toggle("dark-mode");
         }
@@ -128,6 +167,48 @@ window.addEventListener('load', (event) => {
             document.getElementById("transcription-text").innerHTML = '';
             document.getElementById("transcription-text").appendChild(clone);
             document.getElementById("transcription-partial").innerHTML = '';
+        }
+
+        function displayWatermark() {
+            const watermark = document.getElementById("watermark")
+            const scroll = document.getElementById("scroller")
+            const animationDurationInput = document.getElementById("animation-duration");
+
+            watermark.classList.remove('hidden')
+            watermark.classList.add('displayed')
+            scroll.classList.remove('normal')
+            scroll.classList.add('smaller')
+            
+            setTimeout(() => {
+                hideWatermark()
+              }, animationDurationInput.value * 1000)              
+        }
+
+        function hideWatermark() {
+            const watermark = document.getElementById("watermark")
+            const scroll = document.getElementById("scroller")
+            
+            watermark.classList.remove('displayed')
+            watermark.classList.add('hidden')
+            scroll.classList.remove('smaller')
+            scroll.classList.add('normal')
+        }
+
+        function setWatermarkFrequence(frequenceInMinutes) {
+            if(watermarkInterval) {
+                clearInterval(watermarkInterval)
+            }
+            watermarkInterval = setInterval(displayWatermark, frequenceInMinutes * 60000)
+        }
+
+        function cleanText() {
+            const text = document.getElementById("transcription-text").textContent
+            const count = text.length;
+            if (count > 1500) {
+                //return text.substring(count - 500, count);
+                document.getElementById("transcription-text").textContent = text.substring(count - 300, count);
+            }
+            //return text;
         }
     }).catch(function (err) {
 
