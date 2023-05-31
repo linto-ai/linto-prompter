@@ -1,0 +1,1 @@
+WS_URL="wss://api.linto.ai/stt-sofins-streaming/streaming"
