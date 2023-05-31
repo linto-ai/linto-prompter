@@ -192,6 +192,8 @@ window.addEventListener('load', (event) => {
             watermark.classList.add('hidden')
             scroll.classList.remove('smaller')
             scroll.classList.add('normal')
+
+            document.getElementById('scroller').scroll(0, 1000);
         }
 
         function setWatermarkFrequence(frequenceInMinutes) {
