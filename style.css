@@ -47,9 +47,10 @@ article {
     color:white;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    width: 700px;
-    font-size: 18px;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    width: 1000px;
+    font-size: 2rem;
 }
 
 #parameters-section {
@@ -65,9 +66,9 @@ article {
 #scroller.smaller {
     animation-name: smallerText;
     animation-duration: 1s;
-    transform: scale(0.6);
+    transform: scale(0.8);
     position: relative;
-    right: 137px;
+    right: 100px;
     bottom: 10px;
 }
 
@@ -107,6 +108,7 @@ article {
 #watermark {
     position: absolute;
     opacity: 0;
+    font-size: 1.2rem;
 }
 
 #watermark.hidden {
@@ -166,18 +168,18 @@ article {
     }
   
     to {
-        transform: scale(0.6);
+        transform: scale(0.8);
         position: relative;
-        right: 137px;
+        right: 100px;
         bottom: 10px;
     }
 }
 
 @keyframes normalText {
     from {
-        transform: scale(0.6);
+        transform: scale(0.8);
         position: relative;
-        right: 137px;
+        right: 100px;
         bottom: 10px;
     }
   

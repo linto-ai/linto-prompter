@@ -16,8 +16,7 @@ window.addEventListener('load', (event) => {
     // const resetButton = document.getElementById("reset-button");
     // resetButton.addEventListener("click", resetPlaceHolder);
     
-    const watermarkButton = document.getElementById("watermark-button");
-    watermarkButton.addEventListener("click", displayWatermark);
+    
 
     const darkModeButton = document.getElementById("dark-mode-button");
     darkModeButton.addEventListener("click", toggleDarkMode);
@@ -30,6 +29,12 @@ window.addEventListener('load', (event) => {
         const frequence = event.target.value;
         setWatermarkFrequence(frequence);
     })
+
+    const watermarkButton = document.getElementById("watermark-button");
+    watermarkButton.addEventListener("click",() => {
+        setWatermarkFrequence(watermarkFrequenceInput.value)
+        displayWatermark()
+    });
     
     setWatermarkFrequence(watermarkFrequenceInput.value)
 
@@ -141,7 +146,9 @@ window.addEventListener('load', (event) => {
         
         setTimeout(() => {
             hideWatermark()
-          }, animationDurationInput.value * 1000)              
+          }, animationDurationInput.value * 1000) 
+          
+        forceScroll(1100)
     }
 
     function hideWatermark() {
@@ -152,10 +159,14 @@ window.addEventListener('load', (event) => {
         watermark.classList.add('hidden')
         scroll.classList.remove('smaller')
         scroll.classList.add('normal')
+        forceScroll(1100)
+        
+    }
+
+    function forceScroll(time) {
         setTimeout(() => {
             document.getElementById('scroller').scroll(0, document.getElementById('scroller').scrollHeight);
-        }, 1200)
-        
+        }, time)
     }
 
     function setWatermarkFrequence(frequenceInMinutes) {
@@ -171,6 +182,7 @@ window.addEventListener('load', (event) => {
         if (count > 1500) {
             //return text.substring(count - 500, count);
             document.getElementById("transcription-text").textContent = text.substring(count - 300, count);
+            forceScroll(20)
         }
         //return text;
     }
