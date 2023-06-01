@@ -17,6 +17,8 @@ window.addEventListener('load', (event) => {
     // resetButton.addEventListener("click", resetPlaceHolder);
     
     
+    const resetButton = document.getElementById("reset-button");
+    resetButton.addEventListener("click", resetText)
 
     const darkModeButton = document.getElementById("dark-mode-button");
     darkModeButton.addEventListener("click", toggleDarkMode);
@@ -185,6 +187,11 @@ window.addEventListener('load', (event) => {
             forceScroll(20)
         }
         //return text;
+    }
+
+    function resetText() {
+        document.getElementById("transcription-text").innerHTML = '';
+        document.getElementById("transcription-partial").innerHTML = '';
     }
 
     initMicrophone(recorderProcess)
