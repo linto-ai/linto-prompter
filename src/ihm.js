@@ -16,7 +16,7 @@ export default class Ihm {
     this._microphone = new Microphone((e) => {
       this.handleRecordingData(e)
     })
-    this._webSocketHandler = new WebSocketHandler(null, null, this.handleWebsocketError.bind(this), this.handleWebsocketData.bind(this))
+    this._webSocketHandler = new WebSocketHandler(null, this.handleWebsocketClose.bind(this), this.handleWebsocketError.bind(this), this.handleWebsocketData.bind(this))
     this.setWatermarkFrequence(WATERMARK_FREQUENCY)
 
     this.recordButton.addEventListener('click', this.startRecording.bind(this))
@@ -41,6 +41,11 @@ export default class Ihm {
     setTimeout(this.startRecording.bind(this), 1000)
   }
 
+  handleWebsocketClose(event) {
+    console.log('handleWebsocketClose: ', event)
+    this.stopRecording()
+  }
+  
   handleWebsocketData (data, retry = 0) {
     console.log('handleWebsocketData: ', data)
     switch (true) {
