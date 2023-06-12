@@ -24,8 +24,6 @@ export default class microphone {
     }
 
     getAudioStream(callback) {
-        console.log(this)
-
         const audioInputSelect = document.querySelector('select#audioSource');
         
         if (this.stream) {

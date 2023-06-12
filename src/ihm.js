@@ -16,7 +16,7 @@ export default class ihm {
         this._microphone = new microphone((e) => {
             this.handleRecordingData(e)
         });
-        this._webSocketHandler = new webSocketHandler(null, null, null, this.handleWebsocketData.bind(this));
+        this._webSocketHandler = new webSocketHandler(null, null, this.handleWebsocketError.bind(this), this.handleWebsocketData.bind(this));
         this.setWatermarkFrequence(WATERMARK_FREQUENCY)
 
         this.recordButton.addEventListener("click", this.startRecording.bind(this));
@@ -25,7 +25,7 @@ export default class ihm {
         this.darkModeButton.addEventListener("click", this.toggleDarkMode.bind(this));
         this.watermarkButton.addEventListener("click", this.displayWatermark.bind(this));
         this.resetButton.addEventListener("click", this.resetText.bind(this));
-        
+
         document.getElementById('scroller').scroll(0, 1000);
     }
 
@@ -34,6 +34,12 @@ export default class ihm {
         if(this.isRecording) {
             this._webSocketHandler.sendData(data);
         }
+    }
+
+    handleWebsocketError(event) {
+        this.stopRecording();
+        console.log("retrying in 1s")
+        setTimeout(this.startRecording.bind(this), 1000);
     }
 
     handleWebsocketData(data, retry = 0) {
@@ -61,14 +67,14 @@ export default class ihm {
         }
     }
 
-    startRecording(event) {
+    startRecording() {
         this.isRecording = true;
         this._webSocketHandler.connect();
         this.recordButton.setAttribute("disabled", "disabled");
         this.stopButton.removeAttribute("disabled");
     }
 
-    stopRecording(event) {
+    stopRecording() {
         this.isRecording = false;
         this._webSocketHandler.close();
         this.recordButton.removeAttribute("disabled");
@@ -98,7 +104,7 @@ export default class ihm {
         const currentText = document.getElementById("transcription-text").textContent;
         const newText = currentText + text;
         if(newText.length > 1500) {
-            document.getElementById("transcription-text").textContent = newText.substring(newText.length - 1500);
+            document.getElementById("transcription-text").textContent = newText.substring(newText.length - 300);
         }
         else
         {

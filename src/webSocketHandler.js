@@ -23,7 +23,7 @@ export default class websocketHandler {
         this._ws.onopen = this.onOpen.bind(this);
         this._ws.onclose = this.onClose.bind(this);
         this._ws.onmessage = this.onMessage.bind(this);
-        //this._ws.onerror = this.onError.bind(this);
+        this._ws.onerror = this.onError.bind(this);
     }
 
     onOpen(event) {
@@ -42,6 +42,13 @@ export default class websocketHandler {
     onMessage(event) {
         const data = JSON.parse(event.data);
         this.onMessageCallback(data);
+    }
+
+    onError(event) {
+        if(this.onErrorCallback)
+            this.onErrorCallback(event);
+
+        console.error("Websocket error: ", event);
     }
 
 
