@@ -7,8 +7,6 @@
     <title>LinTO</title>
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="config.js"></script>
-    <script src="microphone.js"></script>
-    <script src="main.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -27,14 +25,7 @@
     <section id="parameters-section">
         <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
     </section>
-    <section id="parameters-section">
-        <label for="watermark-frequence">Frequence du watermark (minutes):</label>
-        <input type="number" id="watermark-frequence" value="25" min="1" />
-    </section>
-    <section id="parameters-section">
-        <label for="animation-duration">Durée watermark (seconde):</label>
-        <input type="number" id="animation-duration" value="15" min="3" />
-    </section>
+    
     <section>
         <article id="transcription">
             <div id="scroller">
@@ -45,8 +36,8 @@
                 <span id="transcription-partial"></span>
                 <div id="anchor"></div>
             </div>
-            <div id="watermark">Transcription par LinTO <img id="logo-linto-inline" src="linto-only.svg" /> <img
-                src="logo-linagora.png" id="logo-linagora-inline"> – https://linto.ai</div>
+            <div id="watermark">Transcription par LinTO.ai <img id="logo-linto-inline" src="linto-only.svg" />,  IA Open Source par <img
+                src="logo-linagora.png" id="logo-linagora-inline"></div>
         </article>
     </section>
 
@@ -57,5 +48,10 @@
                 src="logo-linagora.png" id="logo-linagora-inline"> – https://linto.ai</div>
 
     </template>
-
+    <script type="module">
+        import Ihm from './src/ihm.js';
+        window.addEventListener('load', (event) => {
+            new Ihm();
+        });
+    </script>
 </body>
