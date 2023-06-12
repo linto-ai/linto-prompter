@@ -1,0 +1,10 @@
+{
+    "standard": {
+      "globals": ["WATERMARK_FREQUENCY","WS_URL","WATERMARK_DURATION", "AudioContext", "WebSocket"],
+      "ignore": [
+        "/simplestreetmap/static/vendor/",
+        "/build"
+      ]
+    }
+    
+  }
