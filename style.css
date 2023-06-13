@@ -46,7 +46,7 @@ article {
     background-color: black;
     color:white;
     position: absolute;
-    bottom: 0px;
+    bottom: -50px;
     left: 0px;
     /* transform: translateY(-50%) translateX(-50%); */
     width: 100%;
