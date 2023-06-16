@@ -1,8 +1,42 @@
-import Microphone from './microphone.js'
+//import Microphone from './microphone.js'
 import WebSocketHandler from './webSocketHandler.js'
 
+const constraints = {
+  audio: {
+      echoCancellation: false,
+      noiseSuppression: false,
+      autoGainControl: true
+  }
+}
 export default class Ihm {
-  constructor () {
+  constructor ( ) {
+    var self = this
+    navigator.mediaDevices.getUserMedia(constraints).then(function (microphoneStream) {
+      initializeRecorder(microphoneStream);
+      function initializeRecorder(stream) {
+        // https://stackoverflow.com/a/42360902/466693
+        var mediaStream = stream;
+
+        var audio_context = new AudioContext({ sampleRate: 16000 });
+
+        var audioInput = audio_context.createMediaStreamSource(stream);
+
+        console.log("Created media stream.");
+
+        var bufferSize = 8192;
+        // record only 1 channel
+        var recorder = audio_context.createScriptProcessor(bufferSize, 1, 1);
+        // specify the processing function
+        recorder.onaudioprocess = self.handleRecordingData.bind(self);
+        // connect stream to our recorder
+        audioInput.connect(recorder);
+        // connect our recorder to the previous destination
+        recorder.connect(audio_context.destination);
+      }
+    }).catch(function (err) {
+
+        console.error('microphone error', err);
+    });
     this.recordButton = document.getElementById('record-button')
     this.stopButton = document.getElementById('stop-button')
     this.darkModeButton = document.getElementById('dark-mode-button')
@@ -13,9 +47,13 @@ export default class Ihm {
     this.isRecording = false
     this.watermarkInterval = null
 
-    this._microphone = new Microphone((e) => {
-      this.handleRecordingData(e)
-    })
+    // this._microphone = new Microphone((e) => {
+    //   console.log('microphone data: ', e, Date.now())
+    //   this.handleRecordingData(e)
+    // })
+
+
+
     this._webSocketHandler = new WebSocketHandler(null, this.handleWebsocketClose.bind(this), this.handleWebsocketError.bind(this), this.handleWebsocketData.bind(this))
     this.setWatermarkFrequence(WATERMARK_FREQUENCY)
 
@@ -27,6 +65,7 @@ export default class Ihm {
     this.resetButton.addEventListener('click', this.resetText.bind(this))
 
     document.getElementById('scroller').scroll(0, 1000)
+
   }
 
   handleRecordingData (data) {
@@ -41,23 +80,23 @@ export default class Ihm {
     setTimeout(this.startRecording.bind(this), 1000)
   }
 
-  handleWebsocketClose(event) {
+  handleWebsocketClose (event) {
     console.log('handleWebsocketClose: ', event)
     this.stopRecording()
   }
-  
+
   handleWebsocketData (data, retry = 0) {
-    console.log('handleWebsocketData: ', data)
     switch (true) {
       case typeof data === 'string':
         console.log('got string, retry: ', retry, 'data: ', data)
         if (retry < 3) { this.handleWebsocketData(JSON.parse(data), retry++) }
         break
       case 'partial' in data:
-        console.log('got partial: ', data.partial)
+        console.log('got partial: ', data.partial, Date.now() / 1000)
         document.getElementById('transcription-partial').innerHTML = data.partial.replaceAll('<unk>', '').replaceAll("' ", "'")
         break
       case 'text' in data:
+        console.log('got text: ', data.partial, Date.now() / 1000)
         document.getElementById('transcription-partial').innerHTML = ''
         this.appendText(' ' + data.text.replaceAll('<unk>', '').replaceAll("' ", "'"))
         break
