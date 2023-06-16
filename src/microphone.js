@@ -33,7 +33,12 @@ export default class Microphone {
 
     const audioSource = audioInputSelect.value
     const constraints = {
-      audio: { deviceId: audioSource ? { exact: audioSource } : undefined }
+      audio: {
+        deviceId: audioSource ? { exact: audioSource } : undefined,
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: true
+      }
 
     }
 
